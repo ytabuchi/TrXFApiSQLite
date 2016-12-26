@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="XFBasicWebClient.Views.SummaryPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Summary Page">
+    <AbsoluteLayout>
+        <ListView x:Name="peopleList"
+                  AbsoluteLayout.LayoutBounds="0,0,1,1"
+                  AbsoluteLayout.LayoutFlags="All"
+                  HasUnevenRows="true"
+                  IsPullToRefreshEnabled="true"
+                  ItemsSource="{Binding}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{DynamicResource LabelStyleId}"
+                                   Text="{Binding Id}" />
+                            <StackLayout Padding="5">
+                                <Label Text="{Binding Name}"
+                                       VerticalTextAlignment="Center" />
+                                <Label Text="{Binding Birthday, StringFormat='{0:yyyy/MM/dd HH:mm}'}"
+                                       TextColor="Gray"
+                                       VerticalTextAlignment="End" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button x:Name="AddButton"
+                Margin="8"
+                AbsoluteLayout.LayoutBounds="0,1,0.5,AutoSize"
+                AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                Style="{DynamicResource ButtonStyleTransparent}"
+                Text="Add" />
+        <Button x:Name="ClearButton"
+                Margin="8"
+                AbsoluteLayout.LayoutBounds="1,1,0.5,AutoSize"
+                AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                Style="{DynamicResource ButtonStyleTransparent}"
+                Text="Clear all data" />
+
+        <Frame x:Name="indicator"
+               AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+               AbsoluteLayout.LayoutFlags="PositionProportional"
+               IsVisible="False">
+            <ActivityIndicator IsRunning="True" />
+        </Frame>
+    </AbsoluteLayout>
+</ContentPage>
