@@ -2,9 +2,9 @@
 
 Webサイトまたはmarkdownプレビューとして表示している場合は、それぞれの枠内をコピー＆ペーストしてください。
 
-## Web ApiKeys
+## Web Api
 
-### `Person.cs`
+### Person.cs
 
 ```csharp
 [PrimaryKey]
@@ -17,7 +17,7 @@ public string Name { get; set; }
 public DateTimeOffset Birthday { get; set; }
 ```
 
-### `WebApiClient.cs`
+### WebApiClient.cs
 
 ```csharp
 class AuthResult
@@ -199,7 +199,7 @@ public async Task<bool> DeletePersonAsync(Person person)
 }
 ```
 
-### `WebApiClient.cs`完成形(現時点)
+### WebApiClient.cs完成形(現時点)
 
 ```csharp
 namespace XFBasicWebClient.Models
@@ -406,7 +406,7 @@ namespace XFBasicWebClient.Models
 }
 ```
 
-### `SummaryPage.xaml`
+### SummaryPage.xaml
 
 ```xml
 <ListView x:Name="peopleList"
@@ -433,7 +433,7 @@ namespace XFBasicWebClient.Models
 </ListView>
 ```
 
-### `SummaryPage.xaml.cs`
+### SummaryPage.xaml.cs
 
 ```csharp
 ObservableCollection<Person> listData = new ObservableCollection<Person>();
@@ -460,7 +460,7 @@ protected override async void OnAppearing()
 }
 ```
 
-### `SummaryPage.xaml.cs`完成形(現時点)
+### SummaryPage.xaml.cs完成形(現時点)
 
 ```csharp
 public partial class SummaryPage : ContentPage
@@ -490,7 +490,7 @@ public partial class SummaryPage : ContentPage
 }
 ```
 
-### `SummaryPage.xaml`
+### SummaryPage.xaml
 
 ```xml
 <AbsoluteLayout>
@@ -538,7 +538,7 @@ public partial class SummaryPage : ContentPage
         Text="Clear all data" />
 ```
 
-### `DetailPage.xaml`
+### DetailPage.xaml
 
 ```xml
 <StackLayout VerticalOptions="FillAndExpand">
@@ -590,7 +590,7 @@ public partial class SummaryPage : ContentPage
 </StackLayout>
 ```
 
-### `DetailPage.xaml.cs`
+### DetailPage.xaml.cs
 
 ```csharp
 // 引数で受け取ったpersonがなければ新規作成します。
@@ -627,7 +627,7 @@ SaveButton.Clicked += async (sender, e) =>
 };
 ```
 
-### `DetailPage.xaml.cs`完成形(現時点)
+### DetailPage.xaml.cs完成形(現時点)
 
 ```csharp
 public partial class DetailPage : ContentPage
@@ -674,7 +674,7 @@ public partial class DetailPage : ContentPage
 
 ## SQLite
 
-### `PeopleManager.cs`
+### PeopleManager.cs
 
 ```csharp
 /// <summary>
@@ -815,7 +815,7 @@ public static async Task DeletePeopleAsync()
 }
 ```
 
-### `PeopleManager.cs`完成形
+### PeopleManager.cs完成形
 
 ```csharp
 public class PeopleManager
@@ -954,7 +954,7 @@ public class PeopleManager
 }
 ```
 
-### `SummaryPage.xaml`
+### SummaryPage.xaml
 
 ```xml
 <Frame x:Name="indicator"
@@ -965,7 +965,7 @@ public class PeopleManager
 </Frame>
 ```
 
-### `SummaryPage.xaml`完成形
+### SummaryPage.xaml完成形
 
 ```xml
 <AbsoluteLayout>
@@ -1016,7 +1016,7 @@ public class PeopleManager
 </AbsoluteLayout>
 ```
 
-### `SummaryPage.xaml.cs`
+### SummaryPage.xaml.cs
 
 ```csharp
 ClearButton.Clicked += async (sender, e) =>
@@ -1081,7 +1081,7 @@ foreach (var person in people)
 indicator.IsVisible = false;
 ```
 
-### `SummaryPage.xaml.cs`完成形
+### SummaryPage.xaml.cs完成形
 
 ```csharp
 public partial class SummaryPage : ContentPage
@@ -1163,7 +1163,7 @@ public partial class SummaryPage : ContentPage
 }
 ```
 
-### `DetailPage.xaml`
+### DetailPage.xaml
 
 ```xml
 <StackLayout Padding="4"
@@ -1180,7 +1180,7 @@ public partial class SummaryPage : ContentPage
 </StackLayout>
 ```
 
-### `DetailPage.xaml`完成形
+### DetailPage.xaml完成形
 
 ```xml
 <StackLayout VerticalOptions="FillAndExpand">
@@ -1240,7 +1240,7 @@ public partial class SummaryPage : ContentPage
 </StackLayout>
 ```
 
-### `DetailPage.xaml.cs`
+### DetailPage.xaml.cs
 
 ```csharp
 // このページの情報を取得してローカル、Web APIのデータを更新します。
@@ -1277,7 +1277,7 @@ DeleteButton.Clicked += async (sender, e) =>
 };
 ```
 
-### `DetailPage.xaml.cs`完成形
+### DetailPage.xaml.cs完成形
 
 ```csharp
 public partial class DetailPage : ContentPage
@@ -1333,7 +1333,7 @@ public partial class DetailPage : ContentPage
 }
 ```
 
-### `App.xaml.cs`
+### App.xaml.cs
 
 ```csharp
 protected override async void OnSleep()
@@ -1365,7 +1365,7 @@ protected override async void OnSleep()
 }
 ```
 
-### `App.xaml.cs`完成形
+### App.xaml.cs完成形
 
 ```csharp
 public partial class App : Application
