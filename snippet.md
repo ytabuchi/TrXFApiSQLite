@@ -538,6 +538,39 @@ public partial class SummaryPage : ContentPage
         Text="Clear all data" />
 ```
 
+### SummaryPage.xaml.cs
+
+```csharp
+AddButton.Clicked += async (sender, e) =>
+{
+    await Navigation.PushAsync(new DetailPage(null));
+};
+
+ClearButton.Clicked += async (sender, e) =>
+{
+    var people = await WebApiClient.Instance.GetPeopleAsync();
+    foreach (var p in people)
+    {
+        await WebApiClient.Instance.DeletePersonAsync(p);
+    }
+
+    listData.Clear();
+};
+```
+
+```csharp
+peopleList.ItemSelected += async (object sender, SelectedItemChangedEventArgs e) =>
+{
+    // 選択されたPersonをDetailPageの引数で渡します。
+    var person = e.SelectedItem as Person;
+    if (person == null)
+        return;
+
+    await Navigation.PushAsync(new DetailPage(person));
+    peopleList.SelectedItem = null;
+};
+```
+
 ### DetailPage.xaml
 
 ```xml
