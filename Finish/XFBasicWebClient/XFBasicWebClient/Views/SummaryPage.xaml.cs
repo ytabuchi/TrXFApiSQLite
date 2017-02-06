@@ -19,19 +19,7 @@ namespace XFBasicWebClient.Views
 
             addButton.Clicked += async (sender, e) =>
             {
-                var p = new Person
-                {
-                    Name = "sample",
-                    Birthday = DateTime.Now
-                };
-                await WebApiClient.Instance.PostPersonAsync(p);
-
-                var webPeople = await WebApiClient.Instance.GetPeopleAsync();
-                listData.Clear();
-                foreach (var person in webPeople)
-                {
-                    listData.Add(person);
-                }
+                await Navigation.PushAsync(new DetailPage(null));
             };
 
             clearButton.Clicked += async (sender, e) =>
@@ -50,7 +38,7 @@ namespace XFBasicWebClient.Views
                 var webPeople = await WebApiClient.Instance.GetPeopleAsync();
 
                 listData.Clear();
-                foreach (var person in await PeopleManager.GetPeopleAsync())
+                foreach (var person in webPeople)
                 {
                     listData.Add(person);
                 }
@@ -58,6 +46,16 @@ namespace XFBasicWebClient.Views
                 peopleList.IsRefreshing = false;
             };
 
+            peopleList.ItemSelected += async (object sender, SelectedItemChangedEventArgs e) =>
+            {
+                var person = e.SelectedItem as Person;
+                if (person == null)
+                    return;
+
+                await Navigation.PushAsync(new DetailPage(person));
+
+                peopleList.SelectedItem = null;
+            };
         }
 
         protected override async void OnAppearing()
@@ -69,7 +67,7 @@ namespace XFBasicWebClient.Views
             listData.Clear();
             foreach (var person in webPeople)
             {
-                listData.Add(person); 
+                listData.Add(person);
             }
         }
     }

@@ -14,17 +14,14 @@ namespace XFBasicWebClient.Views
         {
             InitializeComponent();
 
-            // 引数で受け取ったpersonがなければ新規作成します。
             if (person != null)
                 _person = person;
             else
                 _person = new Person();
 
-            // _personをバインディング対象にします。
             this.BindingContext = _person;
 
-            // このページの情報を取得してローカル、Web APIのデータを更新します。
-            SaveButton.Clicked += async (sender, e) =>
+            saveButton.Clicked += async (sender, e) =>
             {
                 var updatePerson = new Person
                 {
@@ -35,22 +32,17 @@ namespace XFBasicWebClient.Views
 
                 if (updatePerson.Id == 0)
                 {
-                    var id = await WebApiClient.Instance.PostPersonAsync(updatePerson);
-                    updatePerson.Id = id;
-                    await PeopleManager.UpsertPersonAsync(updatePerson);
+                    await WebApiClient.Instance.PostPersonAsync(updatePerson);
                 }
                 else
                 {
-                    var webUpdate = WebApiClient.Instance.UpdatePersonAsync(updatePerson);
-                    var localUpdate = PeopleManager.UpsertPersonAsync(updatePerson);
-                    await Task.WhenAll(webUpdate, localUpdate);
+                    await WebApiClient.Instance.UpdatePersonAsync(updatePerson);
                 }
 
                 await Navigation.PopAsync();
             };
 
-            // Idを指定してデータを削除します。
-            DeleteButton.Clicked += async (sender, e) =>
+            deleteButton.Clicked += async (sender, e) =>
             {
                 await WebApiClient.Instance.DeletePersonAsync(_person);
                 await Navigation.PopAsync();
