@@ -2,20 +2,14 @@
 <ContentPage x:Class="XFBasicWebClient.Views.SummaryPage"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:XFBasicWebClient.ViewModels;assembly=XFBasicWebClient"
              Title="Summary Page">
-    <ContentPage.BindingContext>
-        <local:SummaryPageViewModel />
-    </ContentPage.BindingContext>
     <AbsoluteLayout>
         <ListView x:Name="peopleList"
                   AbsoluteLayout.LayoutFlags="All"
                   AbsoluteLayout.LayoutBounds="0,0,1,1"
                   HasUnevenRows="true"
-                  IsPullToRefreshEnabled="true"
-                  IsRefreshing="{Binding IsBusy}"
-                  ItemsSource="{Binding PeopleData}"
-                  RefreshCommand="{Binding RefreshCommand}">
+                  IsPullToRefreshEnabled="True"
+                  ItemsSource="{Binding}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -37,14 +31,12 @@
                 AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
                 AbsoluteLayout.LayoutBounds="0,1,0.5,AutoSize"
                 Margin="8"
-                Command="{Binding AddCommand}"
                 Style="{DynamicResource ButtonStyleTransparent}"
                 Text="Add" />
         <Button x:Name="clearButton"
                 AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
                 AbsoluteLayout.LayoutBounds="1,1,0.5,AutoSize"
                 Margin="8"
-                Command="{Binding ClearCommand}"
                 Style="{DynamicResource ButtonStyleTransparent}"
                 Text="Clear all data" />
 
