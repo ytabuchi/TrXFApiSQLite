@@ -10,79 +10,94 @@ namespace XFBasicWebClient.Views
 {
     public partial class SummaryPage : ContentPage
     {
-        ObservableCollection<Person> listData = new ObservableCollection<Person>();
+        //ObservableCollection<Person> listData = new ObservableCollection<Person>();
 
         public SummaryPage()
         {
             InitializeComponent();
-            this.BindingContext = listData;
+            var vm = new ViewModels.SummayPageViewModel();
+            this.BindingContext = vm;
+            //this.BindingContext = listData;
 
-            AddButton.Clicked += async (sender, e) =>
-            {
-                await Navigation.PushAsync(new DetailPage(null));
-            };
+            //addButton.Clicked += async (sender, e) =>
+            //{
+            //    //await Navigation.PushAsync(new DetailPage(null));
+            //    var p = new Person
+            //    {
+            //        Name = "sample",
+            //        Birthday = DateTime.Now
+            //    };
+            //    await WebApiClient.Instance.PostPersonAsync(p);
 
-            ClearButton.Clicked += async (sender, e) =>
-            {
-                await PeopleManager.DeletePeopleAsync();
-                var people = await WebApiClient.Instance.GetPeopleAsync();
-                foreach (var p in people)
-                {
-                    await WebApiClient.Instance.DeletePersonAsync(p);
-                }
+            //    var webPeople = await WebApiClient.Instance.GetPeopleAsync();
+            //    listData.Clear();
+            //    foreach (var person in webPeople)
+            //    {
+            //        listData.Add(person);
+            //    }
+            //};
 
-                listData.Clear();
-            };
+            //clearButton.Clicked += async (sender, e) =>
+            //{
+            //    await PeopleManager.DeletePeopleAsync();
+            //    var people = await WebApiClient.Instance.GetPeopleAsync();
+            //    foreach (var person in people)
+            //    {
+            //        await WebApiClient.Instance.DeletePersonAsync(person);
+            //    }
 
-            peopleList.Refreshing += async (sender, e) =>
-            {
-                // WebAPIから全データを取得して、SQLiteのデータ数と違ったらSQLiteをアップデートします。
-                var webPeople = await WebApiClient.Instance.GetPeopleAsync();
-                if (!await PeopleManager.CheckPersonCountAsync(webPeople))
-                    await PeopleManager.UpdateLocalDataAsync(webPeople);
+            //    listData.Clear();
+            //};
 
-                // SQLiteから全データを持ってきてListに。
-                listData.Clear();
-                foreach (var item in await PeopleManager.GetPeopleAsync())
-                {
-                    listData.Add(item);
-                }
+            //peopleList.Refreshing += async (sender, e) =>
+            //{
+            //    // WebAPIから全データを取得して、SQLiteのデータ数と違ったらSQLiteをアップデートします。
+            //    var webPeople = await WebApiClient.Instance.GetPeopleAsync();
+            //    if (!await PeopleManager.CheckPersonCountAsync(webPeople))
+            //        await PeopleManager.UpdateLocalDataAsync(webPeople);
 
-                peopleList.IsRefreshing = false;
-            };
+            //    // SQLiteから全データを持ってきてListに。
+            //    listData.Clear();
+            //    foreach (var item in await PeopleManager.GetPeopleAsync())
+            //    {
+            //        listData.Add(item);
+            //    }
 
-            peopleList.ItemSelected += async (object sender, SelectedItemChangedEventArgs e) =>
-            {
-                // 選択されたPersonをDetailPageの引数で渡します。
-                var person = e.SelectedItem as Person;
-                if (person == null)
-                    return;
+            //    peopleList.IsRefreshing = false;
+            //};
+
+            //peopleList.ItemSelected += async (object sender, SelectedItemChangedEventArgs e) =>
+            //{
+            //    // 選択されたPersonをDetailPageの引数で渡します。
+            //    var person = e.SelectedItem as Person;
+            //    if (person == null)
+            //        return;
                 
-                await Navigation.PushAsync(new DetailPage(person));
-                peopleList.SelectedItem = null;
-            };
+            //    await Navigation.PushAsync(new DetailPage(person));
+            //    peopleList.SelectedItem = null;
+            //};
         }
 
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
+        //protected override async void OnAppearing()
+        //{
+        //    base.OnAppearing();
 
-            indicator.IsVisible = true;
+        //    indicator.IsVisible = true;
 
-            // WebApiから現在の情報を取得して、登録されているItem数が異なればSQliteをアップデートします。
-            var webPeople = await WebApiClient.Instance.GetPeopleAsync();
-            if (!await PeopleManager.CheckPersonCountAsync(webPeople))
-                await PeopleManager.UpdateLocalDataAsync(webPeople);
+        //    // WebApiから現在の情報を取得して、登録されているItem数が異なればSQliteをアップデートします。
+        //    var webPeople = await WebApiClient.Instance.GetPeopleAsync();
+        //    if (!await PeopleManager.CheckPersonCountAsync(webPeople))
+        //        await PeopleManager.UpdateLocalDataAsync(webPeople);
 
-            // SQLiteから全データを持ってきてListに流し込みます。
-            listData.Clear();
-            var people = await PeopleManager.GetPeopleAsync();
-            foreach (var person in people)
-            {
-                listData.Add(person); 
-            }
+        //    // SQLiteから全データを持ってきてListに流し込みます。
+        //    listData.Clear();
+        //    var people = await PeopleManager.GetPeopleAsync();
+        //    foreach (var person in people)
+        //    {
+        //        listData.Add(person); 
+        //    }
 
-            indicator.IsVisible = false;
-        }
+        //    indicator.IsVisible = false;
+        //}
     }
 }

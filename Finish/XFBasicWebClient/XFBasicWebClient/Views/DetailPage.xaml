@@ -5,8 +5,7 @@
              Title="Detail Page"
              Padding="12">
     <StackLayout VerticalOptions="FillAndExpand">
-        <Grid RowSpacing="8"
-              VerticalOptions="FillAndExpand">
+        <Grid RowSpacing="8" VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />

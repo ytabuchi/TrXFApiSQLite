@@ -5,20 +5,20 @@
              Title="Summary Page">
     <AbsoluteLayout>
         <ListView x:Name="peopleList"
-                  AbsoluteLayout.LayoutBounds="0,0,1,1"
                   AbsoluteLayout.LayoutFlags="All"
+                  AbsoluteLayout.LayoutBounds="0,0,1,1"
                   HasUnevenRows="true"
                   IsPullToRefreshEnabled="true"
-                  ItemsSource="{Binding}">
+                  IsRefreshing="{Binding IsBusy}"
+                  ItemsSource="{Binding PeopleData}"
+                  RefreshCommand="{Binding RefreshCommand}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label Style="{DynamicResource LabelStyleId}"
-                                   Text="{Binding Id}" />
+                            <Label Style="{DynamicResource LabelStyleId}" Text="{Binding Id}" />
                             <StackLayout Padding="5">
-                                <Label Text="{Binding Name}"
-                                       VerticalTextAlignment="Center" />
+                                <Label Text="{Binding Name}" VerticalTextAlignment="Center" />
                                 <Label Text="{Binding Birthday, StringFormat='{0:yyyy/MM/dd HH:mm}'}"
                                        TextColor="Gray"
                                        VerticalTextAlignment="End" />
@@ -29,24 +29,26 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button x:Name="AddButton"
-                Margin="8"
-                AbsoluteLayout.LayoutBounds="0,1,0.5,AutoSize"
+        <Button x:Name="addButton"
                 AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                AbsoluteLayout.LayoutBounds="0,1,0.5,AutoSize"
+                Margin="8"
+                Command="{Binding AddCommand}"
                 Style="{DynamicResource ButtonStyleTransparent}"
                 Text="Add" />
-        <Button x:Name="ClearButton"
-                Margin="8"
-                AbsoluteLayout.LayoutBounds="1,1,0.5,AutoSize"
+        <Button x:Name="clearButton"
                 AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                AbsoluteLayout.LayoutBounds="1,1,0.5,AutoSize"
+                Margin="8"
+                Command="{Binding ClearCommand}"
                 Style="{DynamicResource ButtonStyleTransparent}"
                 Text="Clear all data" />
 
         <Frame x:Name="indicator"
-               AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
                AbsoluteLayout.LayoutFlags="PositionProportional"
-               IsVisible="False">
-            <ActivityIndicator IsRunning="True" />
+               AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+               IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
         </Frame>
     </AbsoluteLayout>
 </ContentPage>

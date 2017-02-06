@@ -12,38 +12,21 @@ namespace XFBasicWebClient.Models
 {
     public class WebApiClient
     {
-        /// <summary>
-        /// Singlton instance.
-        /// </summary>
         public static WebApiClient Instance { get; set; } = new WebApiClient();
 
         private Uri baseAddress = Helpers.ApiKeys.baseAddress;
         private string Token = "";
         private object locker = new object();
 
-        // 通常は最初にログイン画面を出してユーザー名、パスワードを入力させます。
         private readonly string _name = "admin";
         private readonly string _password = "p@ssw0rd";
 
-        // シングルトンにする場合は、自身にコレクションを保持しても良いでしょう。
-        //public ObservableCollection<Person> Persons { get; set; } = new ObservableCollection<Person>();
-
-        /// <summary>
-        /// Private Constructor for showing just one instance.
-        /// </summary>
         private WebApiClient()
         {
         }
 
-        /// <summary>
-        /// WebAPIにアクセスしてTokenを取得します。
-        /// </summary>
-        /// <param name="name">Name.</param>
-        /// <param name="password">Password.</param>
         private void Initialize(string name, string password)
         {
-            // スレッドをロックしてTokenがなければ取得します。
-            // 通常はこのタイミングでTokenの有効期限などもチェックします。
             lock (locker)
             {
                 if (string.IsNullOrEmpty(Token))
@@ -54,7 +37,6 @@ namespace XFBasicWebClient.Models
                         {
                             client.BaseAddress = baseAddress;
 
-                            // Tokenを入手する処理です。
                             var authContent = new StringContent($"grant_type=password&username={name}&password={password}");
                             authContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
                             var authResponse = client.PostAsync("/Token", authContent).Result;
@@ -73,13 +55,8 @@ namespace XFBasicWebClient.Models
 
         }
 
-        /// <summary>
-        /// PersonをGETします。Personのコレクションを返します。
-        /// </summary>
-        /// <returns>ObservableCollection&lt;Persion&gt;</returns>
         public async Task<ObservableCollection<Person>> GetPeopleAsync()
         {
-            // 内部的にInitializeを呼んでいます。
             Initialize(_name, _password);
 
             using (var client = new HttpClient())
@@ -104,14 +81,8 @@ namespace XFBasicWebClient.Models
             }
         }
 
-        /// <summary>
-        /// PersonをPOSTします。追加した際のIdを返します。
-        /// </summary>
-        /// <returns>WebAPI側で登録されたId</returns>
-        /// <param name="person">Person</param>
         public async Task<int> PostPersonAsync(Person person)
         {
-            // 内部的にInitializeを呼んでいます。
             Initialize(_name, _password);
 
             using (var client = new HttpClient())
@@ -126,7 +97,6 @@ namespace XFBasicWebClient.Models
                     var response = await client.PostAsync("api/People", content);
                     response.EnsureSuccessStatusCode();
 
-                    // ResultにWebAPIで登録したIdを取得できます。
                     var result = await response.Content.ReadAsStringAsync();
                     var id = JsonConvert.DeserializeObject<Person>(result).Id;
 
@@ -140,14 +110,8 @@ namespace XFBasicWebClient.Models
             }
         }
 
-        /// <summary>
-        /// 既存のPersonをPUT(Update)します。bool値を返します。
-        /// </summary>
-        /// <returns>bool</returns>
-        /// <param name="person">Person</param>
         public async Task<bool> UpdatePersonAsync(Person person)
         {
-            // 内部的にInitializeを呼んでいます。
             Initialize(_name, _password);
 
             using (var client = new HttpClient())
@@ -173,11 +137,6 @@ namespace XFBasicWebClient.Models
             }
         }
 
-        /// <summary>
-        /// 引数で渡されたPersonを削除します。bool値を返します。
-        /// </summary>
-        /// <returns>bool</returns>
-        /// <param name="person">Person</param>
         public async Task<bool> DeletePersonAsync(Person person)
         {
             Initialize(_name, _password);
