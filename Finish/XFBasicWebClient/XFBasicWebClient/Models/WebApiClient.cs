@@ -52,7 +52,6 @@ namespace XFBasicWebClient.Models
                     }
                 }
             }
-
         }
 
         public async Task<ObservableCollection<Person>> GetPeopleAsync()
