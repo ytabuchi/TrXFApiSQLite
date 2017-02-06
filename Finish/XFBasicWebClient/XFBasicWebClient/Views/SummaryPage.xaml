@@ -2,7 +2,11 @@
 <ContentPage x:Class="XFBasicWebClient.Views.SummaryPage"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XFBasicWebClient.ViewModels;assembly=XFBasicWebClient"
              Title="Summary Page">
+    <ContentPage.BindingContext>
+        <local:SummaryPageViewModel />
+    </ContentPage.BindingContext>
     <AbsoluteLayout>
         <ListView x:Name="peopleList"
                   AbsoluteLayout.LayoutFlags="All"
@@ -44,11 +48,5 @@
                 Style="{DynamicResource ButtonStyleTransparent}"
                 Text="Clear all data" />
 
-        <Frame x:Name="indicator"
-               AbsoluteLayout.LayoutFlags="PositionProportional"
-               AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
-               IsVisible="{Binding IsBusy}">
-            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-        </Frame>
     </AbsoluteLayout>
 </ContentPage>

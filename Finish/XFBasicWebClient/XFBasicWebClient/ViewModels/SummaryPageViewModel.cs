@@ -10,7 +10,7 @@ using XFBasicWebClient.Models;
 
 namespace XFBasicWebClient.ViewModels
 {
-    public class SummayPageViewModel : ViewModelBase
+    public class SummaryPageViewModel : ViewModelBase
     {
         public ObservableCollection<Person> PeopleData { get; set; } = new ObservableCollection<Person>();
 
@@ -32,7 +32,7 @@ namespace XFBasicWebClient.ViewModels
         public Command ClearCommand { get; private set; }
         public Command RefreshCommand { get; private set; }
 
-        public SummayPageViewModel()
+        public SummaryPageViewModel()
         {
             this.AddCommand = new Command(
                 async () => await AddPerson(),
