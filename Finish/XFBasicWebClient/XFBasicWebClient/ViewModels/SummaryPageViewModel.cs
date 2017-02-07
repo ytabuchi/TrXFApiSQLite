@@ -35,19 +35,19 @@ namespace XFBasicWebClient.ViewModels
         public SummaryPageViewModel()
         {
             this.AddCommand = new Command(
-                async () => await AddPerson(),
+                async () => await AddPersonAsync(),
                 () => !IsBusy);
 
             this.ClearCommand = new Command(
-                async () => await ClearPeople(),
+                async () => await ClearPeopleAsync(),
                 () => !IsBusy);
 
             this.RefreshCommand = new Command(
-                async () => await Refresh(),
+                async () => await RefreshAsync(),
                 () => !IsBusy);
         }
 
-        private async Task AddPerson()
+        private async Task AddPersonAsync()
         {
             IsBusy = true;
 
@@ -68,7 +68,7 @@ namespace XFBasicWebClient.ViewModels
             IsBusy = false;
         }
 
-        private async Task ClearPeople()
+        private async Task ClearPeopleAsync()
         {
             IsBusy = true;
 
@@ -82,7 +82,7 @@ namespace XFBasicWebClient.ViewModels
             IsBusy = false;
         }
 
-        private async Task Refresh()
+        private async Task RefreshAsync()
         {
             IsBusy = true;
 
